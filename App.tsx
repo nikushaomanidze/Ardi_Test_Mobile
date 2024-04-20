@@ -1,48 +1,17 @@
 import React from 'react';
-import type { PropsWithChildren } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+// import { StackNavigator } from './src/navigations';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+import StackNavigator from './src/navigations/StackNavigator';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const App = () => {
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Text>hello</Text>
-    </SafeAreaView>
-  );
-}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+    <StackNavigator />
+
+  )
+
+}
 
 export default App;
