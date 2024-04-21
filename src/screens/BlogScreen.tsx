@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { ScreenRoutes } from '../themes';
-import { BlogPostsResponse } from '../types';
 import { useLazyGetPostQuery } from '../services/services';
 import { useAppSelector } from '../store';
-// import ApiService from '../services/Api';
+import { BlogLayout } from '../components';
+
 
 const BlogScreen = () => {
-
-    const [getPost] = useLazyGetPostQuery()
-    useEffect(() => {
-        getPost()
-    }, [])
-    const navigation = useNavigation()
+    const [getPost] = useLazyGetPostQuery();
     const { isLoading, isError, postsData } = useAppSelector((state) => state.posts);
-    console.log('post is ', isLoading, isError, postsData)
+    const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+
+    useEffect(() => {
+        getPost();
+    }, []);
+
+    const categories = ['drama', 'comedy', 'thriller'];
+
+    const filteredPostsData = postsData?.filter((post) => post.category === categories[selectedCategoryIndex]);
+
+    const handleCategoryChange = (index) => {
+        setSelectedCategoryIndex(index);
+    };
+
     return (
-        <View>
-            <TouchableOpacity onPress={() => navigation.navigate(ScreenRoutes.addPost as never)}>
-                <Text>Hello</Text>
-            </TouchableOpacity>
-        </View>
+        <BlogLayout
+            categories={categories}
+            selectedCategoryIndex={selectedCategoryIndex}
+            handleCategoryChange={handleCategoryChange}
+            isLoading={isLoading}
+            isError={isError}
+            postsData={filteredPostsData}
+        />
     );
 };
 
 export default BlogScreen;
-
-
-
