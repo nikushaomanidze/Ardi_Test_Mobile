@@ -1,14 +1,16 @@
 import React from 'react';
-// import { StackNavigator } from './src/navigations';
-
-
+import { Provider } from 'react-redux';
 import StackNavigator from './src/navigations/StackNavigator';
+// import { store } from './src/store';
+import store from './src/store/store';
 
 const App = () => {
 
   return (
+    <Provider store={store}>
+      <StackNavigator />
+    </Provider>
 
-    <StackNavigator />
 
   )
 
