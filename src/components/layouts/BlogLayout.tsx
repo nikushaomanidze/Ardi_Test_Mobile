@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import ButtonGroup from '../molecules/ButtonGroup';
 import Card from '../molecules/Card';
 import SkeletonContent from 'react-native-skeleton-content';
 
-const BlogLayout = ({ categories, selectedCategoryIndex, handleCategoryChange, isLoading, isError, postsData }) => {
+const BlogLayout = ({ categories, selectedCategoryIndex, handleCategoryChange, isLoading, isError, postsData, handleDelete, onDetail, handleAddPost }) => {
     const renderEmptyComponent = () => {
         return (
             <View>
@@ -14,6 +14,10 @@ const BlogLayout = ({ categories, selectedCategoryIndex, handleCategoryChange, i
     }
     return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={handleAddPost}>
+                <Text>add new post</Text>
+            </TouchableOpacity>
+
             <ButtonGroup buttons={categories} selectedIndex={selectedCategoryIndex} onButtonPress={handleCategoryChange} />
 
             {isLoading ? (
@@ -31,7 +35,8 @@ const BlogLayout = ({ categories, selectedCategoryIndex, handleCategoryChange, i
                             description={item.content}
                             imageUrl={item.imageUrl}
                             onEdit={() => console.log('edit')}
-                            onDelete={() => console.log('delete')}
+                            onDelete={() => handleDelete(item.id)}
+                            onDetail={() => onDetail(item)}
                         />
                     )}
                     numColumns={2}
@@ -78,6 +83,14 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         padding: 10,
         borderRadius: 5,
+    },
+    backgroundImage: {
+        width: '100%',
+        height: '100%',
+    },
+    imageStyle: {
+        resizeMode: 'cover',
+        // opacity: 0.5, // Adjust opacity as needed
     },
 });
 

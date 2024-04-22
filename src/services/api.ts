@@ -20,21 +20,20 @@ const customFetchBase: BaseQueryFn<
 };
 
 
-const baseQueryWithRetry = retry(customFetchBase, { maxRetries: 4 });
+const baseQueryWithRetry = retry(customFetchBase, { maxRetries: 1 });
 
 export const api = createApi({
     refetchOnReconnect: true,
     refetchOnFocus: true,
     reducerPath: "rootApi",
     baseQuery: baseQueryWithRetry,
-    endpoints: (build) => ({
-        getPost: build.query<any, void>({
-            query: () => ({ url: "/blog-post" }),
-        }),
+    endpoints: () => ({
+        // getPost: build.query<any, void>({
+        //     query: () => ({ url: "/blog-post" }),
+        // }),
     }),
 });
 
-export const { useGetPostQuery } = api;
 
 
 

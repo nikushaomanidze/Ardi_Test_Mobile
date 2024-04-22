@@ -9,8 +9,23 @@ export const servicesApi = api.injectEndpoints({
         getPost: build.query<any, void>({
             query: () => ({ url: "/blog-post" }),
         }),
+        deletePost: build.mutation<void, number>({
+            query: (postId) => ({
+                url: `/blog-post/${postId}`,
+                method: "DELETE",
+            }),
+        }),
+        addPost: build.mutation<any, any>({
+            query: (body) => ({
+                url: "/blog-post",
+                method: "POST",
+                body,
+            }),
+        }),
     }),
+
+
 });
 
-export const { useLazyGetPostQuery } = servicesApi;
+export const { useLazyGetPostQuery, useDeletePostMutation, useAddPostMutation } = servicesApi;
 
