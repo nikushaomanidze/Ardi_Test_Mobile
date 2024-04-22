@@ -3,10 +3,10 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { IconMain } from '../atoms';
 import Icon from 'react-native-vector-icons/EvilIcons'; // Import the icon component
 
-const Card = ({ title, description, imageUrl, onEdit, onDelete }) => {
+const Card = ({ title, description, imageUrl, onEdit, onDelete, onDetail }) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={{ alignSelf: 'flex-end', flexDirection: 'row', alignItems: 'center', backgroundColor: 'yellow' }}>
+            <TouchableOpacity style={{ alignSelf: 'flex-end', flexDirection: 'row', alignItems: 'center', backgroundColor: 'yellow' }} onPress={onDetail}>
                 <Text style={{ fontSize: 10 }}>View More </Text>
                 <IconMain icon='trash' size={10} />
             </TouchableOpacity>
@@ -19,7 +19,7 @@ const Card = ({ title, description, imageUrl, onEdit, onDelete }) => {
                 <TouchableOpacity>
                     <IconMain icon='trash' size={20} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onDelete}>
                     <IconMain icon='trash' size={20} />
                 </TouchableOpacity>
             </View>
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         flex: 1,
         maxWidth: '45%',
-        height: 150
+        height: 150,
+        backgroundColor: 'white'
     },
     image: {
         width: "80%",
