@@ -22,7 +22,7 @@ const AddPostScreen = () => {
 			.then(() => {
 				getPost();
 				navigation.goBack();
-				toast.show('Post Added successfully', {
+				toast.show('Post Add successfully', {
 					type: 'success',
 					placement: 'top',
 					duration: 4000,

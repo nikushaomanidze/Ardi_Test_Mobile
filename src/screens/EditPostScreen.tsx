@@ -22,7 +22,7 @@ const EditPostScreen = ({ route }: StackScreensProps<'EditPost'>) => {
 				getPost();
 				navigation.goBack();
 				console.log('modifyPost', modifyPost);
-				toast.show('Post Edited csacsc', {
+				toast.show('Post Edited succesfully', {
 					type: 'success',
 					placement: 'top',
 					duration: 4000,
