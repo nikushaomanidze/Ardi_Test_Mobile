@@ -5,36 +5,44 @@ import { BlogLayout } from '../components';
 import { useDeletePostMutation } from '../services/services';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ScreenRoutes } from '../themes';
+import {  BlogPostsResponseData } from '../types';
+import {  StackNavigationProp } from '../navigations/StackNavigator';
+
 const BlogScreen = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<StackNavigationProp<"Blog">>();
     const [getPost] = useLazyGetPostQuery();
     const [deletePost] = useDeletePostMutation();
     const { isLoading, isError, postsData } = useAppSelector((state) => state.posts);
     const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
-
     useEffect(() => {
         getPost();
     }, []);
 
     const categories = ['drama', 'comedy', 'thriller'];
 
-    const filteredPostsData = postsData?.filter((post) => post.category === categories[selectedCategoryIndex]);
+    const filteredPostsData = postsData?.filter((post: BlogPostsResponseData) => post.category === categories[selectedCategoryIndex]);
 
     const handleCategoryChange = (index: number) => {
         setSelectedCategoryIndex(index);
     };
-    const handleNavigationToDetail = (item) => {
-        navigation.navigate(ScreenRoutes.blogDetail, { item })
+
+    const handleNavigationToDetail = (item:BlogPostsResponseData) => {
+        navigation.navigate("BlogDetail", {
+            name:item?.name,
+            category:item?.category,
+            content:item?.content
+        });
     }
     const handleNavigationToAdd = () => {
-        navigation.navigate(ScreenRoutes.addPost)
+        navigation.navigate('AddPost')
     }
-    const handleNavigationToEdit = (item) => {
-        navigation.navigate(ScreenRoutes.editPost, { item })
+    const handleNavigationToEdit = (item:BlogPostsResponseData) => {
+        navigation.navigate('EditPost', { 
+            name:item?.name,
+            id:item?.id,
+            content:item?.content
+         })
     }
-
-
 
     const handleDeletePost = (id: number) => {
         deletePost(id)
@@ -43,7 +51,7 @@ const BlogScreen = () => {
                 Alert.alert('Film Removed successfully')
                 getPost();
             })
-            .catch((error: any) => {
+            .catch((error: string) => {
                 Alert.alert("Some Problem");
                 console.log(error);
             });

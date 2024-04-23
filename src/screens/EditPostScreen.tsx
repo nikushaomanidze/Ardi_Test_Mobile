@@ -1,22 +1,22 @@
 import React from 'react';
-import { Alert } from 'react-native';
-import { AddPostLayout } from '../components';
 import { useModifyPostMutation, useLazyGetPostQuery } from '../services/services';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
 import { EditPostForm } from '../components/forms';
-const EditPostScreen = ({ route }) => {
-    const { item } = route.params;
+import { StackScreensProps } from '../navigations/StackNavigator';
+
+const EditPostScreen = ({ route }:StackScreensProps <"EditPost">) => {
     const [modifyPost,] = useModifyPostMutation();
     const toast = useToast();
     const [getPost] = useLazyGetPostQuery();
     const navigation = useNavigation()
-    const handleEditPost = ({ name, content }) => {
+    const handleEditPost = ( name:string, content:string ) => {
         const editPayload = {
             name: name,
             content: content,
         };
-        modifyPost({ id: item.id, body: editPayload })
+
+        modifyPost({ id: Number(route?.params?.id), body: editPayload })
             .unwrap()
             .then(() => {
                 getPost();
@@ -42,9 +42,9 @@ const EditPostScreen = ({ route }) => {
     const handleGoBack = () => {
         navigation.goBack()
     }
-    return <EditPostForm
-        title={item.name}
-        description={item.content}
+    return  <EditPostForm
+        title={route?.params?.name}
+        description={route?.params?.content}
         goBack={handleGoBack}
         handleEdit={handleEditPost}
 

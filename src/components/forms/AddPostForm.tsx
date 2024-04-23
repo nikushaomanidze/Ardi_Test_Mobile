@@ -12,8 +12,11 @@ import { MainHeader } from "..";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Toast, useToast } from "react-native-toast-notifications";
 
-// const AddPostForm = ({ handleAddPost, handleBack }: { handleAddPost: (name: string, content: string, value: string) => void; },) => {
-const AddPostForm = ({ handleAddPost, handleBack }) => {
+interface AddPostFormProps {
+    handleAddPost: (name: string, content: string, value: string) => void;
+    handleBack: () => void;
+  }
+const AddPostForm = ({ handleAddPost, handleBack }:AddPostFormProps) => {
     const toast = useToast()
 
     const [value, setValue] = useState(null);

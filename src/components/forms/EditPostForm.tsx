@@ -1,19 +1,24 @@
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert, ScrollView} from "react-native";
 import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
-import { Button, TextInputField } from "..";
-import { Dropdown } from 'react-native-element-dropdown';
+import { TextInputField } from "..";
 import { MainHeader } from "..";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Toast, useToast } from "react-native-toast-notifications";
 
-const EditPostForm = ({ handleEdit, title, description, goBack }) => {
-    const toast = useToast()
+
+interface EditPostFormProps {
+    handleEdit: (name: string, content: string) => void;
+    goBack: () => void;
+    title?: string;
+    description?: string;
+  }
+
+const EditPostForm = ({ handleEdit, title, description, goBack }:EditPostFormProps) => {
     const schema = yup
         .object({
             name: yup.string().required(),
@@ -55,6 +60,7 @@ const EditPostForm = ({ handleEdit, title, description, goBack }) => {
                         />
                     </View>
                 </ScrollView>
+        
             </KeyboardAvoidingView>
         </SafeAreaView >
     );

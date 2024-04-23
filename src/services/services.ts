@@ -1,12 +1,9 @@
-// import {
-//     ICarsTypes,
-//   } from "../types";
-
+import { BlogPostsResponse, ModifyPostInput } from "../types";
 import { api } from "./api";
 
 export const servicesApi = api.injectEndpoints({
     endpoints: (build) => ({
-        getPost: build.query<any, void>({
+        getPost: build.query<BlogPostsResponse, void>({
             query: () => ({ url: "/blog-post" }),
         }),
         deletePost: build.mutation<void, number>({
@@ -22,7 +19,7 @@ export const servicesApi = api.injectEndpoints({
                 body,
             }),
         }),
-        modifyPost: build.mutation<any, { id: number, body: any }>({
+        modifyPost: build.mutation<void, ModifyPostInput>({
             query: ({ id, body }) => ({
                 url: `/blog-post/${id}`,
                 method: "PATCH",
