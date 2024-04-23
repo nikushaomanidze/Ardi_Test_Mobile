@@ -27,11 +27,7 @@ export const api = createApi({
     refetchOnFocus: true,
     reducerPath: "rootApi",
     baseQuery: baseQueryWithRetry,
-    endpoints: () => ({
-        // getPost: build.query<any, void>({
-        //     query: () => ({ url: "/blog-post" }),
-        // }),
-    }),
+    endpoints: () => ({}),
 });
 
 

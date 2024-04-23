@@ -1,12 +1,23 @@
 import React, { memo } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, FlatList, } from 'react-native';
 import ButtonGroup from '../molecules/ButtonGroup';
 import Card from '../molecules/Card';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SkeletonContent from 'react-native-skeleton-content';
-import { BlogHeader, MainHeader } from '..';
-
-const BlogLayout = ({ categories, selectedCategoryIndex, handleCategoryChange, isLoading, isError, postsData, handleDelete, onDetail, handleAddPost, handleEdit }) => {
+import { MainHeader } from '..';
+import { BlogPostsResponseData } from '../../types';
+interface BlogLayoutProps {
+    categories: string[];
+    selectedCategoryIndex: number;
+    handleCategoryChange: (index: number) => void;
+    isLoading: boolean;
+    isError: boolean;
+    postsData: BlogPostsResponseData[] | undefined;
+    handleDelete: (id: number) => void;
+    onDetail: (item: BlogPostsResponseData) => void;
+    handleAddPost: () => void;
+    handleEdit: (item: BlogPostsResponseData) => void;
+}
+const BlogLayout = ({ categories, selectedCategoryIndex, handleCategoryChange, isLoading, isError, postsData, handleDelete, onDetail, handleAddPost, handleEdit }:BlogLayoutProps) => {
     const renderEmptyComponent = () => {
         return (
             <View>

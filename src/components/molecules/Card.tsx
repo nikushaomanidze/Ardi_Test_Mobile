@@ -3,7 +3,14 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { IconMain, TextLabel } from '../atoms';
 import Icon from 'react-native-vector-icons/EvilIcons'; // Import the icon component
 
-const Card = ({ title, description, onEdit, onDelete, onDetail }) => {
+interface CardProps {
+    title: string;
+    description: string;
+    onEdit: () => void;
+    onDelete: () => void;
+    onDetail: () => void;
+}
+const Card = ({ title, description, onEdit, onDelete, onDetail }:CardProps) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.moreButton} onPress={onDetail}>

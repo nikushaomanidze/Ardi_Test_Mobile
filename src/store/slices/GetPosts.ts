@@ -2,13 +2,12 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { servicesApi } from "../../services/services";
-
+import { BlogPostsResponse } from "../../types";
 interface InitialStateType {
     isLoading: boolean;
     isError: boolean;
-    postsData?: any;
+    postsData?: BlogPostsResponse;
 }
-
 const initialState: InitialStateType = {
     isLoading: false,
     isError: false,
@@ -32,7 +31,7 @@ const postSlice = createSlice({
             })
             .addMatcher(
                 servicesApi.endpoints.getPost.matchFulfilled,
-                (state, action: PayloadAction) => {
+                (state, action: PayloadAction<BlogPostsResponse>) => {
                     state.isLoading = false;
                     state.isError = false;
                     state.postsData = action.payload;
