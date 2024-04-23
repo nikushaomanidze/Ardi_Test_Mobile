@@ -1,1 +1,1 @@
-// export const =[]
+export const categories = ['Drama', 'Comedy', 'Thriller'];
