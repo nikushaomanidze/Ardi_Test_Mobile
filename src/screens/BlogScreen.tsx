@@ -30,6 +30,11 @@ const BlogScreen = () => {
     const handleNavigationToAdd = () => {
         navigation.navigate(ScreenRoutes.addPost)
     }
+    const handleNavigationToEdit = (item) => {
+        navigation.navigate(ScreenRoutes.editPost, { item })
+    }
+
+
 
     const handleDeletePost = (id: number) => {
         deletePost(id)
@@ -55,6 +60,7 @@ const BlogScreen = () => {
             handleDelete={handleDeletePost}
             onDetail={handleNavigationToDetail}
             handleAddPost={handleNavigationToAdd}
+            handleEdit={handleNavigationToEdit}
         />
     );
 };

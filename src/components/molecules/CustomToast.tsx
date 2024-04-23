@@ -1,48 +1,34 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
+import { View, Text, StyleSheet } from 'react-native';
+import { useToast } from "react-native-toast-notifications";
 
-const CustomToast = () => {
+const CustomToast = ({ message, type }) => {
     const toast = useToast();
 
-    const showSuccessToast = () => {
-        toast.show('Success!', { type: 'success' });
-    };
+    const styles = StyleSheet.create({
+        container: {
+            padding: 10,
+            borderRadius: 5,
+            marginBottom: 10,
+            backgroundColor: type === 'success' ? '#4caf50' :
+                type === 'warning' ? '#ff9800' :
+                    type === 'error' ? '#f44336' : '#607d8b'
+        },
+        message: {
+            color: '#fff',
+            fontSize: 16,
+        },
+    });
 
-    const showErrorToast = () => {
-        toast.show('Error!', { type: 'error' });
-    };
 
     return (
-        <React.Fragment>
-            <TouchableOpacity style={[styles.button, styles.successButton]} onPress={showSuccessToast}>
-                <Text style={styles.buttonText}>Show Success Toast</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.errorButton]} onPress={showErrorToast}>
-                <Text style={styles.buttonText}>Show Error Toast</Text>
-            </TouchableOpacity>
-        </React.Fragment>
-    );
+        toast.show(message, {
+            type: type,
+            placement: 'top',
+            duration: 4000,
+            animationType: 'slide-in',
+        })
+    )
 };
-
-const styles = StyleSheet.create({
-    button: {
-        backgroundColor: '#007bff',
-        padding: 10,
-        borderRadius: 5,
-        marginVertical: 5,
-        alignItems: 'center',
-    },
-    successButton: {
-        backgroundColor: 'green',
-    },
-    errorButton: {
-        backgroundColor: 'red',
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
-});
 
 export default CustomToast;

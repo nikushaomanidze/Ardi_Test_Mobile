@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextStyle, StyleSheet } from 'react-native';
 
 interface TextLabelProps {
-    text: string;
+    text: string | undefined;
     style?: TextStyle;
 }
 

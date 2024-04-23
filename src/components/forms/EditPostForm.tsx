@@ -12,17 +12,8 @@ import { MainHeader } from "..";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Toast, useToast } from "react-native-toast-notifications";
 
-// const AddPostForm = ({ handleAddPost, handleBack }: { handleAddPost: (name: string, content: string, value: string) => void; },) => {
-const AddPostForm = ({ handleAddPost, handleBack }) => {
+const EditPostForm = ({ handleEdit, title, description, goBack }) => {
     const toast = useToast()
-
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
-    const data = [
-        { label: 'Drama', value: 'drama' },
-        { label: 'Comedy', value: 'comedy' },
-        { label: 'Thriller', value: 'thriller' },
-    ];
     const schema = yup
         .object({
             name: yup.string().required(),
@@ -35,30 +26,20 @@ const AddPostForm = ({ handleAddPost, handleBack }) => {
     });
     const onSubmit = (formData: FormData) => {
         const { name, content } = formData;
-        if (value) {
-            handleAddPost(name, content, value);
-        }
-        else {
-            toast.show("Please Select Category ", {
-                type: "danger",
-                placement: "top",
-                duration: 4000,
-                animationType: "slide-in",
-            }); Toast
-        }
+        handleEdit(name, content);
     };
     return (
         <SafeAreaView style={styles.container}>
-            <MainHeader MainText='Add Post' LeftText='close' leftonPress={handleBack} RightText="add post" rightOnPress={handleSubmit(onSubmit)} />
+            <MainHeader MainText='Edit Post' LeftText='close' leftonPress={goBack} RightText="Edit Post" rightOnPress={handleSubmit(onSubmit)} />
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={{ flex: 1 }}
             >
                 <ScrollView style={{ flex: 1 }} >
-
                     <View style={styles.inputContainer}>
                         <TextInputField
                             placeholder="Please Add Post Name "
+                            defaultValue={title}
                             variant="name"
                             name="name"
                             control={control}
@@ -67,26 +48,10 @@ const AddPostForm = ({ handleAddPost, handleBack }) => {
                         <TextInputField
                             variant="multiText"
                             name="content"
+                            defaultValue={description}
                             control={control}
                             placeholder="Please Add Post Content"
                             containerStyle={styles.phoneInput}
-                        />
-                        <Dropdown
-                            style={styles.dropdown}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            data={data}
-                            maxHeight={300}
-                            labelField="label"
-                            valueField="value"
-                            placeholder={'Select category'}
-                            value={value}
-                            onFocus={() => setIsFocus(true)}
-                            onBlur={() => setIsFocus(false)}
-                            onChange={item => {
-                                setValue(item.value);
-                                setIsFocus(false);
-                            }}
                         />
                     </View>
                 </ScrollView>
@@ -95,7 +60,7 @@ const AddPostForm = ({ handleAddPost, handleBack }) => {
     );
 };
 
-export default AddPostForm;
+export default EditPostForm;
 
 const styles = StyleSheet.create({
     container: {

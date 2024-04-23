@@ -1,40 +1,33 @@
 import React from 'react';
 import { Alert } from 'react-native';
 import { AddPostLayout } from '../components';
-import { useAddPostMutation, useLazyGetPostQuery } from '../services/services';
+import { useModifyPostMutation, useLazyGetPostQuery } from '../services/services';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
-import { AddPostForm } from '../components/forms';
-import { CustomToast } from '../components';
-const AddPostScreen = () => {
-
-    const [addPost, isLoading] = useAddPostMutation();
+import { EditPostForm } from '../components/forms';
+const EditPostScreen = ({ route }) => {
+    const { item } = route.params;
+    const [modifyPost,] = useModifyPostMutation();
     const toast = useToast();
     const [getPost] = useLazyGetPostQuery();
     const navigation = useNavigation()
-    const handleNavigationBack = () => {
-        navigation.goBack()
-    }
-    const handleAddPost = (name: string, content: string, value: string) => {
-        const postPayload = {
+    const handleEditPost = ({ name, content }) => {
+        const editPayload = {
             name: name,
             content: content,
-            category: value
         };
-        addPost(postPayload)
+        modifyPost({ id: item.id, body: editPayload })
             .unwrap()
             .then(() => {
                 getPost();
                 navigation.goBack();
-                toast.show("Post Added successfully", {
+                console.log("modifyPost", modifyPost)
+                toast.show("Post Edited csacsc", {
                     type: "success",
                     placement: "top",
                     duration: 4000,
                     animationType: "slide-in",
                 });
-                return (
-                    <CustomToast message="Success message" type="success" />
-                )
             })
             .catch((error: any) => {
                 toast.show("Post failed", {
@@ -46,7 +39,15 @@ const AddPostScreen = () => {
                 console.error(error);
             });
     };
+    const handleGoBack = () => {
+        navigation.goBack()
+    }
+    return <EditPostForm
+        title={item.name}
+        description={item.content}
+        goBack={handleGoBack}
+        handleEdit={handleEditPost}
 
-    return <AddPostForm handleAddPost={handleAddPost} handleBack={handleNavigationBack} />
+    />
 };
-export default AddPostScreen;
+export default EditPostScreen

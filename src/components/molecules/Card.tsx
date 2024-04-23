@@ -1,26 +1,25 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { IconMain } from '../atoms';
+import { IconMain, TextLabel } from '../atoms';
 import Icon from 'react-native-vector-icons/EvilIcons'; // Import the icon component
 
-const Card = ({ title, description, imageUrl, onEdit, onDelete, onDetail }) => {
+const Card = ({ title, description, onEdit, onDelete, onDetail }) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={{ alignSelf: 'flex-end', flexDirection: 'row', alignItems: 'center', backgroundColor: 'yellow' }} onPress={onDetail}>
-                <Text style={{ fontSize: 10 }}>View More </Text>
-                <IconMain icon='trash' size={10} />
+            <TouchableOpacity style={styles.moreButton} onPress={onDetail}>
+                <TextLabel style={styles.moreText} text='View More' />
             </TouchableOpacity>
-            <View style={{ flex: 1 }}>
+            <View style={styles.contentContainer}>
                 <Text numberOfLines={1} style={{ marginTop: 10 }}>{title}</Text>
                 <View style={styles.borderline} />
                 <Text style={styles.descriptionText} numberOfLines={3}>{description}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', width: '100%', }}>
-                <TouchableOpacity>
-                    <IconMain icon='trash' size={20} />
+                <TouchableOpacity onPress={onEdit} style={styles.bottomButton1}>
+                    <TextLabel style={styles.bottomButton1Text} text='Edit' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={onDelete}>
-                    <IconMain icon='trash' size={20} />
+                <TouchableOpacity onPress={onDelete} style={styles.bottomButton2}>
+                    <TextLabel style={styles.bottomButton2Text} text='Delete' />
                 </TouchableOpacity>
             </View>
         </View>
@@ -39,8 +38,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         flex: 1,
         maxWidth: '45%',
-        height: 150,
-        backgroundColor: 'white'
+        height: 170,
+        backgroundColor: '#f2f5f2'
     },
     image: {
         width: "80%",
@@ -88,6 +87,38 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         fontSize: 10
+    },
+    //
+    moreButton: { alignSelf: 'flex-end', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black', borderRadius: 5, padding: 6 },
+    moreText: { fontSize: 10, color: "#da0b0b", fontWeight: "bold" },
+    contentContainer: {
+        width: '100%',
+        flex: 1,
+        alignItems: 'flex-start'
+    },
+    bottomButton1: {
+        backgroundColor: 'gray',
+        width: '40%',
+        height: 30,
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    bottomButton2: {
+        backgroundColor: 'red',
+        width: '40%',
+        height: 30,
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    bottomButton1Text: {
+        fontSize: 10,
+        color: 'black'
+    },
+    bottomButton2Text: {
+        fontSize: 10,
+        color: 'white'
     }
 });
 
