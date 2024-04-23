@@ -1,14 +1,11 @@
 import React from 'react';
-import { Alert } from 'react-native';
-import { AddPostLayout } from '../components';
 import { useAddPostMutation, useLazyGetPostQuery } from '../services/services';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
 import { AddPostForm } from '../components/forms';
-import { CustomToast } from '../components';
 const AddPostScreen = () => {
 
-    const [addPost, isLoading] = useAddPostMutation();
+    const [addPost] = useAddPostMutation();
     const toast = useToast();
     const [getPost] = useLazyGetPostQuery();
     const navigation = useNavigation()
@@ -32,18 +29,14 @@ const AddPostScreen = () => {
                     duration: 4000,
                     animationType: "slide-in",
                 });
-                return (
-                    <CustomToast message="Success message" type="success" />
-                )
             })
-            .catch((error: any) => {
+            .catch(() => {
                 toast.show("Post failed", {
                     type: "danger",
                     placement: "top",
                     duration: 4000,
                     animationType: "slide-in",
                 });
-                console.error(error);
             });
     };
 

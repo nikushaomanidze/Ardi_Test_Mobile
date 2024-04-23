@@ -7,8 +7,10 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {  BlogPostsResponseData } from '../types';
 import {  StackNavigationProp } from '../navigations/StackNavigator';
+import { useToast } from 'react-native-toast-notifications';
 
 const BlogScreen = () => {
+    const toast =useToast()
     const navigation = useNavigation<StackNavigationProp<"Blog">>();
     const [getPost] = useLazyGetPostQuery();
     const [deletePost] = useDeletePostMutation();
@@ -48,12 +50,21 @@ const BlogScreen = () => {
         deletePost(id)
             .unwrap()
             .then(() => {
-                Alert.alert('Film Removed successfully')
                 getPost();
+                toast.show("Post Delete Successfully", {
+                    type: "success",
+                    placement: "top",
+                    duration: 4000,
+                    animationType: "slide-in",
+                });
             })
-            .catch((error: string) => {
-                Alert.alert("Some Problem");
-                console.log(error);
+            .catch(() => {
+                toast.show("Post Delete Filed", {
+                    type: "danger",
+                    placement: "top",
+                    duration: 4000,
+                    animationType: "slide-in",
+                });
             });
     };
 

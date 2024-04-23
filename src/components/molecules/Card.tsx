@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { IconMain, TextLabel } from '../atoms';
-import Icon from 'react-native-vector-icons/EvilIcons'; // Import the icon component
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { TextLabel } from '../atoms';
 
 interface CardProps {
     title: string;
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     deleteButton: {
-        backgroundColor: '#dc3545', // Red color for delete button
+        backgroundColor: '#dc3545',
     },
     buttonText: {
         color: '#fff',
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
     descriptionText: {
         fontSize: 10
     },
-    //
     moreButton: { alignSelf: 'flex-end', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black', borderRadius: 5, padding: 6 },
     moreText: { fontSize: 10, color: "#da0b0b", fontWeight: "bold" },
     contentContainer: {

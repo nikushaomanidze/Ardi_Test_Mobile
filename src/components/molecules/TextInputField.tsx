@@ -1,7 +1,4 @@
-
-
-
-import { useState, forwardRef } from "react";
+import React, { forwardRef } from "react"; // Import React
 import {
     KeyboardType,
     Pressable,
@@ -13,6 +10,7 @@ import {
 } from "react-native";
 import { useController } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+
 interface PropsTypes {
     name: string;
     variant?: "name" | "multiText";
@@ -28,7 +26,6 @@ interface PropsTypes {
     defaultValue?: string;
     labelColor?: string;
     textColor?: string;
-    onFocus?: () => void;
 }
 
 const TextInputField = forwardRef<TextInput, PropsTypes>(
@@ -41,7 +38,6 @@ const TextInputField = forwardRef<TextInput, PropsTypes>(
             placeholder,
             onSubmitEditing,
             defaultValue = "",
-            onFocus = () => { },
         },
         ref
     ) => {
@@ -49,7 +45,7 @@ const TextInputField = forwardRef<TextInput, PropsTypes>(
             field,
             formState: { errors },
         } = useController({ control, name, defaultValue });
-        let keyboardType: KeyboardType = "default";
+        const keyboardType: KeyboardType = "default";
 
         return (
             <View style={styles.container}>
@@ -69,22 +65,21 @@ const TextInputField = forwardRef<TextInput, PropsTypes>(
                     placeholderTextColor="grey"
                     multiline={variant === 'multiText'}
                     numberOfLines={variant === 'multiText' ? 4 : 1}
-                    onFocus={onFocus}
                     textAlignVertical="top"
-
                 />
                 <ErrorMessage
                     name={name}
                     errors={errors}
                     render={({ message }) => (
                         <Text style={styles.errorText}>{message}</Text>
-                        // <Text style={styles.errorText}>error</Text>
                     )}
                 />
             </View>
         );
     }
 );
+
+TextInputField.displayName = "TextInputField"; // Add display name for the component
 
 const styles = StyleSheet.create({
     container: {
