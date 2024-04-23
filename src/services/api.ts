@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://ardi-test-back-1c8840b2f462.herokuapp.com",
 });
 
 

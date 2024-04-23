@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import React from 'react';
+import { View, TouchableOpacity, StyleSheet, TextStyle } from 'react-native';
 import { TextLabel } from '../atoms';
 
 interface ButtonGroupProps {
@@ -21,10 +20,10 @@ const ButtonGroup = ({ buttons, selectedIndex, onButtonPress }: ButtonGroupProps
                     ]}
                     onPress={() => onButtonPress(index)}
                 >
-                    <TextLabel text={button} style={[
+                     <TextLabel text={button} style={[
                         styles.buttonText,
                         selectedIndex === index && styles.selectedButtonText,
-                    ]} />
+                    ] as TextStyle} />
                 </TouchableOpacity>
             ))}
         </View>
