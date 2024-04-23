@@ -36,5 +36,5 @@ Validation:
 
 yup
 
-პროექტის მიმდინარეოა შეგიძიათ იხილოთ ->
+პროექტის მიმდინარეობა შეგიძლიათ იხილოთ აქ ->
 https://github.com/nikushaomanidze/Ardi_Test_Mobile/pulls?q=is%3Apr+is%3Aclosed
